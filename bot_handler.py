@@ -1,3 +1,4 @@
+
 import os
 import telegram
 from telegram.ext import Updater, MessageHandler, Filters  # import modules
@@ -22,11 +23,11 @@ def get_message(update, context):
         msg_sp = msg.split(' ')
         if len(msg_sp) > 3:
             for stock_name in msg_sp[1:]:
-                stock_msg = load_data.news(stock_name)
+                stock_msg = load_data.news_message(stock_name)
                 update.message.reply_text(stock_msg)
         else:
             stock_name=msg_sp[1] 
-            stock_msg = load_data.news(stock_name)
+            stock_msg = load_data.news_message(stock_name)
             update.message.reply_text(stock_msg)
 
 # updater = Updater(token = "5274317648:AAHRSonZ5zRBNIyx6KRMtzDPFL1bC5_yGQY", use_context=True)
