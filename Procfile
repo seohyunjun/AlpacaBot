@@ -1,1 +1,1 @@
-bot_handler:python bot_handler.py
+bot_handler: python bot_handler.py
