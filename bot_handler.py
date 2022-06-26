@@ -1,8 +1,4 @@
-from websockets import imports
-
-
 import os
-
 import telegram
 from telegram.ext import Updater, MessageHandler, Filters  # import modules
 import load_data
@@ -11,10 +7,6 @@ import bot
 # message reply function
 def get_message(update, context):
     msg = update['message']['text']
-    if '/update' in msg:
-        update.message.reply_text('Uploading ...')
-        update_msg = load_data.stock_update()
-        update.message.reply_text(update_msg)
 
     if '/stock' in msg:
         msg_sp = msg.split(' ')
