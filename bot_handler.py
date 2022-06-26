@@ -1,3 +1,8 @@
+from websockets import imports
+
+
+import os
+
 import telegram
 from telegram.ext import Updater, MessageHandler, Filters  # import modules
 import load_data
