@@ -42,7 +42,7 @@ def load_stock_data(Ticker,start=(datetime.today() - timedelta(days=2)).strftime
     return cost, m_data,d_data  
 
 def messege(Ticker):
-
+    Ticker = Ticker.upper()
     dollar = USDKRW()
 
     cost, m_data,d_data = load_stock_data(Ticker)
@@ -63,6 +63,7 @@ def messege(Ticker):
     return msg
 
 def news_message(Ticker="LCID"):
+    Ticker = Ticker.upper()
     headers = {
         'Apca-Api-Key-Id':'PKWZ3J8AEQYSBJVKK1MW',
         'Apca-Api-Secret-Key':'1r7TUmFUlnETLAdlTtzUeJcJqYXaldCWygC21GQK',
