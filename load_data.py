@@ -16,7 +16,6 @@ import json
 # 1r7TUmFUlnETLAdlTtzUeJcJqYXaldCWygC21GQK
 ##if __name__=='__main__':
 
-
 def load_stock_data(Ticker,start=(datetime.today() - timedelta(days=2)).strftime('%Y-%m-%d'),end=datetime.now().strftime('%Y-%m-%d')):
 
     cost_start = time.time()
@@ -30,13 +29,17 @@ def load_stock_data(Ticker,start=(datetime.today() - timedelta(days=2)).strftime
     #     time_t=TimeFrame.Day
         
     try:
-
         m_data = api.get_bars(Ticker, TimeFrame.Minute, start, end,adjustment='raw').df
-        d_data = api.get_bars(Ticker, TimeFrame.Day, start, end,adjustment='raw').df
     except:
         m_data = None
-        d_data = None
 
+    try:
+        d_data = api.get_bars(Ticker, TimeFrame.Day, start, end,adjustment='raw').df
+        if len(d_data)==0:
+            d_data = api.get_bars(Ticker, TimeFrame.Day, (datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d'), datetime.now().strftime('%Y-%m-%d'),adjustment='raw').df
+    except:
+        d_data = None
+    
     cost_end = time.time()
     cost = cost_end-cost_start
     return cost, m_data,d_data  
