@@ -6,3 +6,4 @@ requests==2.26.0
 DateTime==4.3
 lxml==4.6.4
 python-dateutil==2.8.2
+Pymysql==1.0.2
