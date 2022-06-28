@@ -5,6 +5,8 @@ import time
 
 import requests
 import json
+
+import pymysql
 # https://apps.timwhitlock.info/emoji/tables/unicode
 
 
@@ -16,6 +18,20 @@ import json
 # 1r7TUmFUlnETLAdlTtzUeJcJqYXaldCWygC21GQK
 ##if __name__=='__main__':
 
+#CLEARDB_DATABASE_URL: mysql://b58af86981239b:7ab127ce@us-cdbr-east-05.cleardb.net/heroku_c41a079ed6d7ed3?reconnect=true
+
+def DBconnect():
+    #데이터 입력용 conn
+    db = pymysql.connect(
+        host='us-cdbr-east-05.cleardb.net',
+        port=3306,
+        user='b58af86981239b',
+        passwd='7ab127ce',
+        db='heroku_c41a079ed6d7ed3',
+        charset='utf8')
+    cursor = db.cursor()
+    return db,cursor
+    
 def load_stock_data(Ticker,start=(datetime.today() - timedelta(days=2)).strftime('%Y-%m-%d'),end=datetime.now().strftime('%Y-%m-%d')):
 
     cost_start = time.time()
@@ -88,6 +104,31 @@ def news_message(Ticker="LCID"):
 
     return result
 
+def load_inv_list(name, season):
+
+    db, cursor = DBconnect()
+    cursor.execute(f'SELECT * FROM invlist WHERE NAME=\'{name}\' AND SEASON={season}')
+    invdata = pd.DataFrame(cursor.fetchall())
+    invdata.columns = ['SEASON','NAME','TICKER','PRICE','CNT','AMOUNT','CASH']
+    
+    total = []
+    profit = 0
+    msg = ''
+    start = (datetime.today() - timedelta(days=3)).strftime('%Y-%m-%d')
+    now = datetime.today().strftime('%Y-%m-%d')
+        
+    for T,price,cnt in zip(invdata['TICKER'],invdata['PRICE'],invdata['CNT']):
+
+        cost, d_data, m_data = load_stock_data(T,start=start,end=now)
+        d_data.sort_index(inplace=True)
+        value = d_data['close'][-1]
+        
+        msg=msg+f"""{T.upper()}({cnt}): {value}-{price} {(value-price)/price*100:.2f}%
+        """
+        profit = profit + ((value-price) * cnt)
+    msg = msg+ f'''
+    profit:{profit+invdata['CASH'].iloc[0]:.2f} {(profit)/(100000-invdata['CASH'].iloc[0])*100:.2f}'''
+    return msg
 # def plt_save(data):
 
 #     sns.lineplot(x = data.index, y = data.open)

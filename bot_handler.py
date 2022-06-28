@@ -29,6 +29,19 @@ def get_message(update, context):
             stock_name=msg_sp[1] 
             stock_msg = load_data.news_message(stock_name)
             update.message.reply_text(stock_msg)
+    if '/result' in msg:
+        msg_sp = msg.split(' ')
+        name = msg_sp[1]
+        season = msg_sp[2]
+        
+        if len(msg_sp) >= 3:
+            name = msg_sp[1]
+            season = msg_sp[2]
+        
+            stock_msg = load_data.load_inv_list(name, season)
+            update.message.reply_text(stock_msg)
+        else:
+            update.message.reply_text("Input Ex : /result [NAME] [SEASON]")
 
 # updater = Updater(token = "5274317648:AAHRSonZ5zRBNIyx6KRMtzDPFL1bC5_yGQY", use_context=True)
 
