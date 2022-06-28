@@ -5,7 +5,6 @@ import time
 
 import requests
 import json
-
 import pymysql
 # https://apps.timwhitlock.info/emoji/tables/unicode
 
