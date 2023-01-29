@@ -15,5 +15,5 @@
 
 
 ### Help
-- /stock <ticker> : open, close, adjust, expect, volume
-- /news <ticker> : recently 10 news keyword ticker
+- /stock \<ticker\> : open, close, adjust, expect, volume
+- /news \<ticker\> : recently 10 news keyword ticker
