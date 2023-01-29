@@ -2,8 +2,8 @@ import telegram
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler # import modules
 
 def sendMessage(msg):
-    bot = telegram.Bot(token = "5274317648:AAHRSonZ5zRBNIyx6KRMtzDPFL1bC5_yGQY")
-    bot.sendMessage(chat_id=1909064563, text = msg)
+    bot = telegram.Bot(token = "{telegram token}")
+    bot.sendMessage(chat_id={chatid}, text = msg)
     print("Send Message")
     return True
 
@@ -11,7 +11,7 @@ class TelegramBot:
     def __init__(self, name, Token):
         self.core = telegram.Bot(Token)
         self.updater = Updater(Token)
-        self.id = 1909064563
+        self.id = {chatid}
         self.name = name
     def sendMessage(self, text):
         self.core.sendMessage(chat_id = self.id, text=text)
@@ -23,7 +23,7 @@ class TelegramBot:
     
 class StockBot(TelegramBot):
     def __init__(self):
-        self.Token = "5274317648:AAHRSonZ5zRBNIyx6KRMtzDPFL1bC5_yGQY"
+        self.Token = {alpaca APIKEY}
         TelegramBot.__init__(self,'stockbot',self.Token)
         self.updater.stop()
     
