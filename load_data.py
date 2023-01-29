@@ -10,23 +10,16 @@ import pymysql
 
 
 
-# Client ID:
-# PKWZ3J8AEQYSBJVKK1MW
-
-# Client Secret:
-# 1r7TUmFUlnETLAdlTtzUeJcJqYXaldCWygC21GQK
 ##if __name__=='__main__':
-
-#CLEARDB_DATABASE_URL: mysql://b58af86981239b:7ab127ce@us-cdbr-east-05.cleardb.net/heroku_c41a079ed6d7ed3?reconnect=true
 
 def DBconnect():
     #데이터 입력용 conn
     db = pymysql.connect(
-        host='us-cdbr-east-05.cleardb.net',
+        host='{heroku db}',
         port=3306,
-        user='b58af86981239b',
-        passwd='7ab127ce',
-        db='heroku_c41a079ed6d7ed3',
+        user='{db userid}',
+        passwd='{db passwd}',
+        db='{heroku db server id}',
         charset='utf8')
     cursor = db.cursor()
     return db,cursor
@@ -35,8 +28,8 @@ def load_stock_data(Ticker,start=(datetime.today() - timedelta(days=2)).strftime
 
     cost_start = time.time()
     api = REST(
-        'PKWZ3J8AEQYSBJVKK1MW',
-        '1r7TUmFUlnETLAdlTtzUeJcJqYXaldCWygC21GQK')
+        '{Apca-Api-Key-Id}',
+        '{Apca-Api-Secret-Key}')
     
     # if time_type=='min':
     #     time_t=TimeFrame.Minute
@@ -83,8 +76,8 @@ def messege(Ticker):
 def news_message(Ticker="LCID"):
     Ticker = Ticker.upper()
     headers = {
-        'Apca-Api-Key-Id':'PKWZ3J8AEQYSBJVKK1MW',
-        'Apca-Api-Secret-Key':'1r7TUmFUlnETLAdlTtzUeJcJqYXaldCWygC21GQK',
+        'Apca-Api-Key-Id':'{Apca-Api-Key-Id}',
+        'Apca-Api-Secret-Key':'{Apca-Api-Secret-Key}',
     }
     params = {
         'symbols':Ticker
