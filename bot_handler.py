@@ -43,8 +43,6 @@ def get_message(update, context):
         else:
             update.message.reply_text("Input Ex : /result [NAME] [SEASON]")
 
-# updater = Updater(token = "5274317648:AAHRSonZ5zRBNIyx6KRMtzDPFL1bC5_yGQY", use_context=True)
-
 # message_handler = MessageHandler(Filters.text, get_message)
 # updater.dispatcher.add_handler(message_handler)
 
